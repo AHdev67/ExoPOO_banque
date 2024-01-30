@@ -68,11 +68,14 @@ class Titulaire{
     }
 
 //-----------------------------------------------------------------METHODES PERSO-----------------------------------------------------------------
+    
+//méthode pour calculer l'age du titulaire à partir de sa date de naissance
     public function getAge(): string{
         $age = date_diff(($this->_datenaissance), new DateTime()); 
         return $age->format("%Y ans");
     }
 
+//méthode pour ajouter un compte à chaque fois qu'on en crée un au nom de ce titulaire
     public function addCompte(Compte $compte){
             $this->_comptes[] = $compte;
     }
@@ -82,6 +85,7 @@ class Titulaire{
         return "$this->_prenom $this->_nom";
     }
 
+//méthode afficher qui donne les infos du titulaire et liste les comptes à son nom
     public function afficherTitulaire(){
         $result="$this, né(e) le : ".$this->getDatenaissance()." (".$this->getAge()."), habitant à $this->_ville, est titulaire des comptes suivants :<br>";
         foreach($this->_comptes as $compte){
