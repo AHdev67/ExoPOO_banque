@@ -44,7 +44,7 @@ class Titulaire{
 //-----------------------------------------------------------------GETTER/SETTER DATE NAISSANCE-----------------------------------------------------------------
     public function getDatenaissance()
     {
-        return $this->_datenaissance->format("Y-m-d");
+        return $this->_datenaissance->format("d/m/Y");
     }
 
     public function setDatenaissance($_datenaissance)
