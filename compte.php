@@ -78,13 +78,19 @@ class Compte extends Titulaire{
         echo "compte débité de $debit €.<br>";
     }
 
+    public function virer(Compte $compte, float $virement){
+        $this->_soldeinit = $this->_soldeinit - $virement;
+        $compte->_soldeinit = $compte->_soldeinit + $virement;
+        echo "virement de $virement € du $this au $compte->_libelle de $compte->_titulaire.<br>";
+    }
+
 //-----------------------------------------------------------------AFFICHAGE-----------------------------------------------------------------
     public function __toString(): string{
-        return "$this->_libelle solde: $this->_soldeinit $this->_devise";
+        return "$this->_libelle de $this->_titulaire";
     }
 
     public function afficherCompte(){
-        $result= "$this->_libelle de $this->_titulaire, au solde de : $this->_soldeinit $this->_devise<br>";
+        $result= "$this, au solde de : $this->_soldeinit $this->_devise<br>";
         return $result;
     }
 }
