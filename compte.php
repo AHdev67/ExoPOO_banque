@@ -68,20 +68,35 @@ class Compte extends Titulaire{
         return $this;
     }
 //-----------------------------------------------------------------METHODES PERSO-----------------------------------------------------------------
+    
+//méthode crediter qui va prendre en paramètre un montant et va l'additionner à l'attribut solde du compte
     public function crediter(float $credit){
         $this->_soldeinit = $this->_soldeinit + $credit;
-        echo "compte crédité de $credit €.<br>";
+        echo "compte crédité de $credit €.<br>"; 
     }
 
+//pareil mais pour débiter
     public function debiter(float $debit){
-        $this->_soldeinit = $this->_soldeinit - $debit;
-        echo "compte débité de $debit €.<br>";
+        if ($debit <= $this->_soldeinit){
+            $this->_soldeinit = $this->_soldeinit - $debit;
+            echo "compte débité de $debit €.<br>";
+        }
+        else {
+            echo "somme à débiter trop élevée.";
+        }
     }
 
+/*méthode virement qui va prendre en paramètre un autre objet Compte (à crediter) et un montant.
+On soustrait le montant au compte qui effectue le virement, et on l'aditionne au compte à créditer*/
     public function virer(Compte $compte, float $virement){
-        $this->_soldeinit = $this->_soldeinit - $virement;
-        $compte->_soldeinit = $compte->_soldeinit + $virement;
-        echo "virement de $virement € du $this au $compte->_libelle de $compte->_titulaire.<br>";
+        if ($virement <= $this->_soldeinit){
+            $this->_soldeinit = $this->_soldeinit - $virement;
+            $compte->_soldeinit = $compte->_soldeinit + $virement;
+            echo "virement de $virement € du $this au $compte->_libelle de $compte->_titulaire.<br>";
+        }
+        else {
+            echo "somme à virer trop élevée";
+        }
     }
 
 //-----------------------------------------------------------------AFFICHAGE-----------------------------------------------------------------
