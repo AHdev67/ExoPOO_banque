@@ -50,5 +50,13 @@ echo "<br>";
 echo $compte1->afficherCompte();
 $compte1->crediter(10.02);
 echo $compte1->afficherCompte();
+$compte1->debiter(12);
+echo $compte1->afficherCompte();
+
+echo"<br>";
+
+$compte1->virer($compte2, 15.50);
+echo $compte1->afficherCompte();
+echo $compte2->afficherCompte();
 
 ?>
