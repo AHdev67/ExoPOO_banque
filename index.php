@@ -10,6 +10,7 @@
     -Un solde initial<br>
     -Une devise monétaire<br>
     -Un titulaire unique<br>
+    <br>
     -Un titulaire comporte :<br>
     -Un nom<br>
     -Un prénom<br>
@@ -39,6 +40,15 @@ spl_autoload_register(function ($class_name) {
     include $class_name . '.php';
 });
 
+$titulaire1= new Titulaire("Maurice", "Ortolan", "1993-04-17", "Metz");
+$compte1= new Compte("livret A", 75.98, "€", $titulaire1);
+$compte2= new Compte("LEP", 300, "€", $titulaire1);
+echo $titulaire1->afficherTitulaire();
 
+echo "<br>";
+
+echo $compte1->afficherCompte();
+$compte1->crediter(10.02);
+echo $compte1->afficherCompte();
 
 ?>

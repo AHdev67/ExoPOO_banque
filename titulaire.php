@@ -8,20 +8,20 @@ class Titulaire{
     private array $_comptes;
 
 
-    public function __construct(string $nom, string $prenom, string $datenaissance, string $ville){
-        $this->_nom = $nom;
+    public function __construct(string $prenom, string $nom, string $datenaissance, string $ville){
         $this->_prenom = $prenom;
+        $this->_nom = $nom;
         $this->_datenaissance = new DateTime($datenaissance);
         $this->_ville = $ville;
     }
 
     //-----------------------------------------------------------------GETTER/SETTER NOM-----------------------------------------------------------------
-    public function get_nom()
+    public function getNom()
     {
         return $this->_nom;
     }
 
-    public function set_nom($_nom)
+    public function setNom($_nom)
     {
         $this->_nom = $_nom;
 
@@ -29,12 +29,12 @@ class Titulaire{
     }
 
 //-----------------------------------------------------------------GETTER/SETTER PRENOM-----------------------------------------------------------------
-    public function get_prenom()
+    public function getPrenom()
     {
         return $this->_prenom;
     }
 
-    public function set_prenom($_prenom)
+    public function setPrenom($_prenom)
     {
         $this->_prenom = $_prenom;
 
@@ -42,12 +42,12 @@ class Titulaire{
     }
 
 //-----------------------------------------------------------------GETTER/SETTER DATE NAISSANCE-----------------------------------------------------------------
-    public function get_datenaissance()
+    public function getDatenaissance()
     {
-        return $this->_datenaissance;
+        return $this->_datenaissance->format("Y-m-d");
     }
 
-    public function set_datenaissance($_datenaissance)
+    public function setDatenaissance($_datenaissance)
     {
         $this->_datenaissance = $_datenaissance;
 
@@ -55,12 +55,12 @@ class Titulaire{
     }
 
 //-----------------------------------------------------------------GETTER/SETTER VILLE-----------------------------------------------------------------
-    public function get_ville()
+    public function getVille()
     {
         return $this->_ville;
     }
 
-    public function set_ville($_ville)
+    public function setVille($_ville)
     {
         $this->_ville = $_ville;
 
@@ -68,12 +68,25 @@ class Titulaire{
     }
 
 //-----------------------------------------------------------------METHODES PERSO-----------------------------------------------------------------
+    public function getAge(): string{
+        $age = date_diff(($this->_datenaissance), new DateTime()); 
+        return $age->format("%Y ans");
+    }
+
     public function addCompte(Compte $compte){
-        $this->_comptes[] = $compte;
+            $this->_comptes[] = $compte;
     }
 
 //-----------------------------------------------------------------AFFICHAGE-----------------------------------------------------------------
     public function __toString(){
-        return "$this->_nom $this->_prenom, né(e) le :";
+        return "$this->_prenom $this->_nom";
+    }
+
+    public function afficherTitulaire(){
+        $result="$this, né(e) le : ".$this->getDatenaissance()." (".$this->getAge()."), habitant à $this->_ville, est titulaire des comptes suivants :<br>";
+        foreach($this->_comptes as $compte){
+            $result.=$compte."<br>";
+        }
+        return $result;
     }
 }

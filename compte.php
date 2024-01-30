@@ -1,4 +1,5 @@
 <?php
+use LDAP\Result;
 
 class Compte extends Titulaire{
     private string $_libelle;
@@ -16,12 +17,12 @@ class Compte extends Titulaire{
     }
 
 //-----------------------------------------------------------------GETTER/SETTER LIBELLE-----------------------------------------------------------------
-    public function get_libelle()
+    public function getLibelle()
     {
         return $this->_libelle;
     }
 
-    public function set_libelle($_libelle)
+    public function setLibelle($_libelle)
     {
         $this->_libelle = $_libelle;
 
@@ -29,12 +30,12 @@ class Compte extends Titulaire{
     }
 
 //-----------------------------------------------------------------GETTER/SETTER SOLDE INITIAL-----------------------------------------------------------------
-    public function get_soldeinit()
+    public function getSoldeinit()
     {
         return $this->_soldeinit;
     }
 
-    public function set_soldeinit($_soldeinit)
+    public function setSoldeinit($_soldeinit)
     {
         $this->_soldeinit = $_soldeinit;
 
@@ -42,12 +43,12 @@ class Compte extends Titulaire{
     }
 
 //-----------------------------------------------------------------GETTER/SETTER DEVISE-----------------------------------------------------------------
-    public function get_devise()
+    public function getDevise()
     {
         return $this->_devise;
     }
 
-    public function set_devise($_devise)
+    public function setDevise($_devise)
     {
         $this->_devise = $_devise;
 
@@ -55,20 +56,35 @@ class Compte extends Titulaire{
     }
 
 //-----------------------------------------------------------------GETTER/SETTER TITULAIRE-----------------------------------------------------------------
-    public function get_titulaire()
+    public function getTitulaire()
     {
         return $this->_titulaire;
     }
 
-    public function set_titulaire($_titulaire)
+    public function setTitulaire($_titulaire)
     {
         $this->_titulaire = $_titulaire;
 
         return $this;
     }
+//-----------------------------------------------------------------METHODES PERSO-----------------------------------------------------------------
+    public function crediter(float $credit){
+        $this->_soldeinit = $this->_soldeinit + $credit;
+        echo "compte crédité de $credit €.<br>";
+    }
+
+    public function debiter(float $debit){
+        $this->_soldeinit = $this->_soldeinit - $debit;
+        echo "compte débité de $debit €.<br>";
+    }
 
 //-----------------------------------------------------------------AFFICHAGE-----------------------------------------------------------------
     public function __toString(): string{
-        return "$this->_libelle solde: $this->_soldeinit $this->_devise.";
+        return "$this->_libelle solde: $this->_soldeinit $this->_devise";
+    }
+
+    public function afficherCompte(){
+        $result= "$this->_libelle de $this->_titulaire, au solde de : $this->_soldeinit $this->_devise<br>";
+        return $result;
     }
 }
